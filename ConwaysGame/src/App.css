@@ -1,0 +1,16 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+/* HomePage.css, GamePage.css, CreditsPage.css, Grid.css: Add your styling here */
