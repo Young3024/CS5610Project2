@@ -1,6 +1,6 @@
 .app {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin:0 auto;
 }
 
 nav ul {
@@ -13,4 +13,40 @@ nav ul li {
   margin-right: 10px;
 }
 
-/* HomePage.css, GamePage.css, CreditsPage.css, Grid.css: Add your styling here */
+/* GamePage.css */
+.game-page {
+  text-align: center;
+}
+
+/* Grid.css */
+.grid {
+  display: grid;
+  /* grid-template-rows: repeat(auto-fill, 20px); */
+  grid-template-columns: repeat(40,20px);
+  gap: 1px;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.alive {
+  background-color: #000;
+}
+
+/* ControlPanel.css */
+.control-panel {
+  margin-top: 20px;
+}
+
+.control-panel input {
+  margin-right: 10px;
+}
+
+.control-panel button {
+  margin-left: 10px;
+}
+

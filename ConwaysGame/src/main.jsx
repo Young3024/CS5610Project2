@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import HomePage from './HomePage';
+import GamePage from './GamePage';
 import CreditPage from './CreditPage';
 import './index.css'
 import {
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/home",
-    element: <HomePage />,
+    path: "/game",
+    element: <GamePage />,
   },
   {
     path: "/credits",
