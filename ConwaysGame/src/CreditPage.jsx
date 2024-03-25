@@ -13,8 +13,8 @@ const CreditsPage = () => {
       </nav>
       
       <h1>Credits</h1>
-      <p>Developed by [Your Name]</p>
-      <p>Github repo: <a href="[link to your repo]">[link]</a></p>
+      <p>Developed by Yiyang Cao</p>
+      <p>Github repo: <a href="https://github.com/Young3024/CS5610Project2">[link]</a></p>
     </div>
   );
 }

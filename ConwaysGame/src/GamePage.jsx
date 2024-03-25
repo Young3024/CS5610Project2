@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Link }from 'react-router-dom';
 import Grid from './Grid';
 import Controls from './Controls';
 import './App.css';
@@ -7,7 +8,7 @@ const GamePage = () => {
   const [gridSize, setGridSize] = useState({ height: 20, width: 20 });
   const [livingCells, setLivingCells] = useState([]);
   const [iteration, setIteration] = useState(0);
-
+  
   useEffect(() => {
     initializeGrid();
   }, [gridSize]);
@@ -84,6 +85,13 @@ const GamePage = () => {
 
   return (
     <div className="app">
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/game">Game</Link></li>
+          <li><Link to="/credits">Credits</Link></li>
+        </ul>
+      </nav>
       <h1>Conway's Game of Life</h1>
       
         <Grid

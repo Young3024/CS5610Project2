@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Controls = ({ gridSize, setGridSize, resetGrid, progressSimulation, livingCellsCount }) => {
   const [newHeight, setNewHeight] = useState(gridSize.height);
   const [newWidth, setNewWidth] = useState(gridSize.width);
   const [error, setError] = useState('');
+  const [isAutoplayOn, setIsAutoplayOn] = useState(false);
+
+  const handleAutoplayToggle = () => {
+    setIsAutoplayOn(prevState => !prevState); // Toggle autoplay state
+  };
+
+  useEffect(() => {
+    let autoplayInterval;
+
+    if (isAutoplayOn) {
+      autoplayInterval = setInterval(progressSimulation, 100); // Progress simulation every 100 milliseconds
+    } else {
+      clearInterval(autoplayInterval); // Clear interval when autoplay is turned off
+    }
+
+    return () => clearInterval(autoplayInterval); // Clean up interval on component unmount
+  }, [isAutoplayOn, progressSimulation]);
 
   const handleHeightChange = event => {
     const height = parseInt(event.target.value);
@@ -50,6 +67,9 @@ const Controls = ({ gridSize, setGridSize, resetGrid, progressSimulation, living
       <button onClick={handleSubmit}>Submit</button>
       <button onClick={resetGrid}>Reset Grid</button>
       <button onClick={progressSimulation}>Progress Simulation</button>
+      <button onClick={handleAutoplayToggle}>
+        {isAutoplayOn ? 'Stop Autoplay' : 'Start Autoplay'}
+      </button>
       <div className="living-cells">Living Cells: {livingCellsCount}</div>
       {error && <div className="error-message">{error}</div>}
     </div>
