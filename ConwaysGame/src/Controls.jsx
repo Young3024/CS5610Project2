@@ -44,8 +44,9 @@ const Controls = ({ gridSize, setGridSize, resetGrid, progressSimulation, living
 
   return (
     <div className="controls">
+      {error && <div className="error-message">{error}</div>}
       <div className="input-group">
-        <label>Height:</label>
+        <label>Width:</label>
         <input
           type="number"
           value={newHeight}
@@ -55,7 +56,7 @@ const Controls = ({ gridSize, setGridSize, resetGrid, progressSimulation, living
         />
       </div>
       <div className="input-group">
-        <label>Width:</label>
+        <label>Height:</label>
         <input
           type="number"
           value={newWidth}
@@ -71,7 +72,7 @@ const Controls = ({ gridSize, setGridSize, resetGrid, progressSimulation, living
         {isAutoplayOn ? 'Stop Autoplay' : 'Start Autoplay'}
       </button>
       <div className="living-cells">Living Cells: {livingCellsCount}</div>
-      {error && <div className="error-message">{error}</div>}
+      
     </div>
   );
 };

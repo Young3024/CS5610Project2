@@ -7,32 +7,42 @@ import './App.css';
 const GamePage = () => {
   const [gridSize, setGridSize] = useState({ height: 20, width: 20 });
   const [livingCells, setLivingCells] = useState([]);
-  const [iteration, setIteration] = useState(0);
-  
+  const [iteration, setIteration] = useState(Array.from({ length: gridSize.height }, () => Array(gridSize.width).fill(0)));
+  const [isHeatmapActive, setIsHeatmapActive] = useState(false);
+
   useEffect(() => {
     initializeGrid();
   }, [gridSize]);
 
   const initializeGrid = () => {
     const newLivingCells = [];
+    const newIteration = [];
     for (let i = 0; i < gridSize.height; i++) {
+      newIteration.push([Array.from({ length: gridSize.width }).fill(0)]); // Initialize inner array
       for (let j = 0; j < gridSize.width; j++) {
         if (Math.random() < 0.05) { // 5% chance of being alive
           newLivingCells.push({ x: i, y: j });
+          newIteration[i][j] = 0;
+        } else {
+          newIteration[i][j] = 1;
         }
       }
-    }
+  }
     setLivingCells(newLivingCells);
-    setIteration(0);
+    setIteration(newIteration);
   };
 
   const toggleCellState = (x, y) => {
+    const newIteration = [...iteration];
     const cellIndex = livingCells.findIndex(cell => cell.x === x && cell.y === y);
     if (cellIndex === -1) {
       setLivingCells([...livingCells, { x, y }]);
+      newIteration[x][y] = 0;
     } else {
       setLivingCells(livingCells.filter(cell => !(cell.x === x && cell.y === y)));
+      newIteration[x][y] = 1;
     }
+    setIteration(newIteration);
   };
 
   const resetGrid = () => {
@@ -41,7 +51,7 @@ const GamePage = () => {
 
   const progressSimulation = () => {
     const newLivingCells = [];
-  
+    const newIteration = [...iteration];
     // Function to count live neighbors of a cell
     const countLiveNeighbors = (x, y) => {
       let liveNeighbors = 0;
@@ -71,18 +81,24 @@ const GamePage = () => {
       for (let j = 0; j < gridSize.width; j++) {
         if (shouldCellLive(i, j)) {
           newLivingCells.push({ x: i, y: j });
+          newIteration[i][j] = 0;
+        }else{
+          newIteration[i][j] +=1;
+          console.log(newIteration[i][j]);
         }
+      
       }
     }
   
     // Update living cells and iteration count
     setLivingCells(newLivingCells);
-    setIteration(iteration + 1);
+    setIteration(newIteration);
   };
   
+  const toggleHeatmap = () => {
+    setIsHeatmapActive(prevState => !prevState);
+  };
   
-  
-
   return (
     <div className="app">
       <nav>
@@ -93,6 +109,9 @@ const GamePage = () => {
         </ul>
       </nav>
       <h1>Conway's Game of Life</h1>
+      <button onClick={toggleHeatmap}>
+        {isHeatmapActive ? 'Disable Heatmap' : 'Enable Heatmap'}
+      </button>
       
         <Grid
           height={gridSize.height}
@@ -100,6 +119,7 @@ const GamePage = () => {
           livingCells={livingCells}
           toggleCellState={toggleCellState}
           iteration={iteration}
+          isHeatmapActive={isHeatmapActive}
         />
         <Controls
           gridSize={gridSize}
